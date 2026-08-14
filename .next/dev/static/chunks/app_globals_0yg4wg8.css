@@ -1,0 +1,165 @@
+/* [project]/app/globals.css [app-client] (css) */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #fff;
+  transition: background-color .25s, color .25s;
+}
+
+html.dark body {
+  background: #0a0a0a;
+}
+
+header {
+  -webkit-backdrop-filter: saturate(1.1) blur();
+  backdrop-filter: saturate(1.1) blur();
+}
+
+header.rdp-nav-scrolled {
+  -webkit-backdrop-filter: saturate(1.2) blur(18px);
+  backdrop-filter: saturate(1.2) blur(18px);
+  box-shadow: 0 8px 30px #0000002e;
+  background: #0a0a0ad1 !important;
+}
+
+html:not(.dark) header.rdp-nav-scrolled {
+  background: #ffffffdb !important;
+}
+
+.rdp-theme-toggle {
+  color: #f5f5f5;
+  background: #ffffff14;
+  border: 1px solid #ffffff1f;
+  border-radius: 9999px;
+  align-items: center;
+  gap: .6rem;
+  padding: .65rem .95rem;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1;
+  transition: transform .2s, background-color .2s, border-color .2s;
+  display: inline-flex;
+}
+
+.rdp-theme-toggle:hover {
+  background: #ffffff24;
+  transform: translateY(-1px);
+}
+
+.rdp-theme-toggle-icon {
+  background: #ffffff1f;
+  border-radius: 9999px;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-flex;
+}
+
+html:not(.dark) .rdp-theme-toggle {
+  color: #111827;
+  background: #1118270d;
+  border-color: #1118271f;
+}
+
+html:not(.dark) .rdp-theme-toggle-icon {
+  background: #11182714;
+}
+
+.rdp-reveal {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1);
+  transform: translate3d(0, 28px, 0)scale(.985);
+}
+
+.rdp-reveal.rdp-reveal-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0)scale(1);
+}
+
+.rdp-hover-lift {
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s cubic-bezier(.22, 1, .36, 1), background-color .2s;
+}
+
+.rdp-hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+.rdp-fade-scale-in {
+  animation: .32s cubic-bezier(.22, 1, .36, 1) rdpFadeScale;
+}
+
+@keyframes rdpFadeScale {
+  from {
+    opacity: 0;
+    transform: translateY(10px)scale(.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0)scale(1);
+  }
+}
+
+#faq .faq-item {
+  cursor: default;
+  overflow: hidden;
+}
+
+#faq .faq-trigger {
+  width: 100%;
+}
+
+#faq .faq-toggle {
+  cursor: pointer;
+  transition: transform .28s, background-color .2s;
+}
+
+#faq .faq-toggle-icon {
+  transform-origin: center;
+  transition: transform .28s;
+}
+
+#faq .faq-item.open .faq-toggle-icon {
+  transform: rotate(45deg);
+}
+
+#faq .faq-answer-wrap {
+  opacity: 0;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .32s cubic-bezier(.22, 1, .36, 1), opacity .24s;
+  display: grid;
+}
+
+#faq .faq-item.open .faq-answer-wrap {
+  opacity: 1;
+  grid-template-rows: 1fr;
+}
+
+#faq .faq-answer-inner {
+  overflow: hidden;
+}
+
+#faq .faq-answer-content {
+  color: #4b5563;
+  opacity: 0;
+  padding: 0 1.5rem 1.5rem;
+  font-size: 1rem;
+  line-height: 1.95rem;
+  transition: opacity .28s, transform .32s cubic-bezier(.22, 1, .36, 1);
+  transform: translateY(-10px);
+}
+
+html.dark #faq .faq-answer-content {
+  color: #9ca3af;
+}
+
+#faq .faq-item.open .faq-answer-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*# sourceMappingURL=app_globals_0yg4wg8.css.map*/
