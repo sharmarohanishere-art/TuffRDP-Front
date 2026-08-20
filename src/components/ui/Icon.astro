@@ -1,0 +1,50 @@
+---
+// A generic Icon wrapper that can take SVG paths or use pre-defined names
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+}
+const { name, size = 24, class: className = '' } = Astro.props;
+
+// Icon mapping
+const icons: Record<string, string> = {
+  'sun-moon': '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>',
+  'search': '<circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path>',
+  'search-x': '<path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  'linux': '<path d="M12 22s-7-2-7-10V5l7-3 7 3v7c0 8-7 10-7 10z"/>',
+  'windows': '<path d="M3 11V4l8-1v8zm8 1v8l-8-1v-7zm1 8l9 1V12h-9zm9-9V2l-9 1v8z"/>',
+  'box': '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/>',
+  'check': '<polyline points="20 6 9 17 4 12"></polyline>',
+  'chevron-down': '<path d="m6 9 6 6 6-6"/>',
+  'zap': '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+  'shield': '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+  'server': '<rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/>',
+  'grid': '<rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/>',
+  'x-circle': '<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/>'
+};
+
+const innerHTML = icons[name] || '<circle cx="12" cy="12" r="10"></circle>';
+---
+<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  width={size} 
+  height={size} 
+  viewBox="0 0 24 24" 
+  fill="none" 
+  stroke="currentColor" 
+  stroke-width="2" 
+  stroke-linecap="round" 
+  stroke-linejoin="round" 
+  class={`icon ${className}`}
+  aria-hidden="true"
+  set:html={innerHTML}
+>
+</svg>
+
+<style>
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+  }
+</style>

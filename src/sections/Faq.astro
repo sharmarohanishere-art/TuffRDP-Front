@@ -1,0 +1,55 @@
+---
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+import { faqs } from '../data/home';
+import { Icon } from 'astro-icon/components';
+---
+
+<section id="faq" class="py-24 bg-surface-1 border-t border-border-subtle overflow-hidden">
+  <Container>
+    <div class="grid lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-16">
+      
+      <!-- FAQ Intro -->
+      <div>
+        <p class="text-[0.72rem] font-mono tracking-wider text-primary uppercase mb-4">05 / Answers</p>
+        <h2 class="text-3xl md:text-4xl font-semibold text-text leading-tight mb-4">Important details, before you deploy.</h2>
+        <p class="text-text-muted text-lg mb-8">For configuration help or a question outside this list, contact the TuffRDP support team.</p>
+        <a href="https://tuffrdp.com/contact" class="inline-flex items-center font-bold text-text hover:text-primary transition-colors group">
+          Contact support 
+          <Icon name="lucide:arrow-right" class="w-4 h-4 ml-2 text-primary group-hover:translate-x-1 transition-transform" />
+        </a>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="border-t border-border">
+        {faqs.map((faq) => (
+          <details class="group border-b border-border [&_summary::-webkit-details-marker]:hidden">
+            <summary class="flex justify-between items-center py-6 font-semibold text-text cursor-pointer list-none hover:text-primary transition-colors">
+              {faq.question}
+              <span class="text-primary font-mono text-xl transition-transform duration-300 group-open:rotate-45">+</span>
+            </summary>
+            <div class="overflow-hidden transition-all duration-300 grid grid-rows-[0fr] group-open:grid-rows-[1fr]">
+              <p class="min-h-0 text-text-muted leading-relaxed pb-6 pr-6 m-0 max-w-2xl">{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+      
+    </div>
+
+    <!-- Final CTA -->
+    <div class="mt-32 pt-16 border-t border-border grid lg:grid-cols-2 gap-10 items-center relative">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,var(--color-primary),transparent_60%)] opacity-10 pointer-events-none blur-3xl"></div>
+      
+      <div class="relative z-10">
+        <p class="text-[0.72rem] font-mono tracking-wider text-primary uppercase mb-4">Ready when you are</p>
+        <h2 class="text-4xl md:text-5xl font-semibold text-text leading-tight">Deploy the infrastructure your work actually needs.</h2>
+      </div>
+      
+      <div class="relative z-10 lg:pl-12">
+        <p class="text-text-muted text-lg mb-8 leading-relaxed">Start with a Windows RDP or Linux VPS plan, then scale the configuration as the workload changes.</p>
+        <Button href="#pricing">Compare server plans</Button>
+      </div>
+    </div>
+  </Container>
+</section>

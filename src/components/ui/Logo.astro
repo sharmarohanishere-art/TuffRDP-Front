@@ -1,0 +1,32 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+<a href="/" class={`logo-link ${className}`} aria-label="TUFF RDP home">
+  <span class="logo-tuff">TUFF</span><span class="logo-rdp">RDP</span>
+</a>
+
+<style>
+  .logo-link {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: .65rem;
+  }
+  .logo-tuff,
+  .logo-rdp {
+    font-size: 1.1rem;
+    line-height: 1;
+    letter-spacing: .075em;
+  }
+  .logo-tuff {
+    color: var(--color-primary-hover);
+    font-weight: 350;
+  }
+  .logo-rdp {
+    color: var(--color-text);
+    font-weight: 700;
+  }
+</style>

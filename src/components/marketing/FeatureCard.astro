@@ -1,0 +1,60 @@
+---
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<div class="feature-card rdp-hover-lift">
+  <div class="feature-icon-wrapper">
+    <slot name="icon">
+      <!-- Default icon fallback -->
+      <svg class="feature-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    </slot>
+  </div>
+  <h3 class="feature-title">{title}</h3>
+  <p class="feature-desc">{description}</p>
+</div>
+
+<style>
+  .feature-card {
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+  }
+  
+  .feature-icon-wrapper {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-md);
+    background: var(--color-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+  
+  .feature-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  .feature-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .feature-desc {
+    color: var(--color-text-subtle);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+</style>

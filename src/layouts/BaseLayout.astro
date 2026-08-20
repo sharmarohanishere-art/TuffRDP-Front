@@ -1,0 +1,43 @@
+---
+import { siteConfig } from '../config/site';
+import '../styles/tokens.css';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const { title, description, noindex = false } = Astro.props;
+const siteTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
+const siteDescription = description || siteConfig.description;
+const canonicalUrl = new URL(Astro.url.pathname, siteConfig.url);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/images/favicon-DXF0N9Mn.svg" />
+    
+    <title>{siteTitle}</title>
+    <meta name="description" content={siteDescription} />
+    
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={siteDescription} />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={siteConfig.ogImage} />
+    <meta property="og:image:alt" content={`${siteConfig.name} infrastructure overview`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+  </head>
+  <body>
+    <slot />
+    
+  </body>
+</html>

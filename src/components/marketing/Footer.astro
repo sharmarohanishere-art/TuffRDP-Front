@@ -1,0 +1,57 @@
+---
+import Container from '../ui/Container.astro';
+import Logo from '../ui/Logo.astro';
+import { Icon } from 'astro-icon/components';
+
+const groups: Array<[string, Array<[string, string]>]> = [
+  ['Products', [['Windows RDP', 'https://tuffrdp.com/en/windows-rdp'], ['Linux VPS', 'https://tuffrdp.com/en/linux-vps'], ['Storage VPS', 'https://tuffrdp.com/en/storage-vps'], ['Pricing', '#pricing']]],
+  ['Infrastructure', [['Locations', 'https://tuffrdp.com/en/locations'], ['Network', 'https://tuffrdp.com/en/statistics'], ['Status', 'https://tuffrdp.com/status'], ['Features', '#infrastructure']]],
+  ['Resources', [['Documentation', 'https://tuffrdp.com/docs/'], ['Guides', 'https://tuffrdp.com/blog'], ['FAQ', '#faq'], ['Contact', 'https://tuffrdp.com/contact']]],
+  ['Company', [['About', 'https://tuffrdp.com/en/about'], ['Terms', 'https://tuffrdp.com/en/tos'], ['Privacy', 'https://tuffrdp.com/en/privacy'], ['Acceptable use', 'https://tuffrdp.com/report-abuse']]],
+];
+---
+
+<footer class="pt-16 pb-8 bg-[#07090d] border-t border-border relative overflow-hidden">
+  <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none [mask-image:linear-gradient(to_bottom,transparent,black)]"></div>
+  
+  <Container class="relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-8 md:gap-6 mb-16">
+      
+      <!-- Brand & Status -->
+      <div class="md:pr-8">
+        <Logo />
+        <p class="max-w-[17rem] my-4 text-sm leading-relaxed text-text-muted">
+          Remote infrastructure for persistent desktops, services, and the work behind them.
+        </p>
+        <a href="https://tuffrdp.com/status" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 text-sm text-text hover:text-primary transition-colors group">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-signal opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-signal"></span>
+          </span>
+          View system status
+          <Icon name="lucide:arrow-right" class="w-3.5 h-3.5 text-primary group-hover:translate-x-1 transition-transform" />
+        </a>
+      </div>
+
+      <!-- Links -->
+      {groups.map(([label, links]) => (
+        <div>
+          <h2 class="mb-4 text-[0.7rem] font-mono tracking-wider text-text-muted uppercase">{label}</h2>
+          <ul class="flex flex-col gap-2.5">
+            {links.map(([text, href]) => (
+              <li>
+                <a href={href} class="text-sm text-text-subtle hover:text-text transition-colors">{text}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="flex flex-wrap justify-between gap-4 pt-6 border-t border-border-subtle text-[0.7rem] font-mono text-text-muted">
+      <span>© {new Date().getFullYear()} TuffRDP</span>
+      <span>Windows RDP · Linux VPS · Infrastructure</span>
+    </div>
+  </Container>
+</footer>

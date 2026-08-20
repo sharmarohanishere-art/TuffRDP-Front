@@ -1,0 +1,50 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'outline';
+  class?: string;
+}
+
+const { href, variant = 'primary', class: className = '' } = Astro.props;
+
+const Element = href ? 'a' : 'button';
+
+const baseStyles = "inline-flex items-center justify-center font-medium transition-all duration-200 rounded-lg whitespace-nowrap";
+const variants = {
+  primary: "bg-primary text-white hover:bg-primary-hover",
+  secondary: "bg-card text-text border border-border hover:bg-bg-subtle",
+  outline: "bg-transparent text-text border border-border hover:border-primary hover:text-primary"
+};
+
+const buttonClasses = `${baseStyles} ${variants[variant]} ${className}`;
+---
+
+<Element href={href} class={buttonClasses}>
+  <slot />
+</Element>
+
+<style>
+  .inline-flex { display: inline-flex; }
+  .items-center { align-items: center; }
+  .justify-center { justify-content: center; }
+  .font-medium { font-weight: 500; }
+  .transition-all { transition-property: all; }
+  .duration-200 { transition-duration: 200ms; }
+  .rounded-lg { border-radius: var(--radius-md); }
+  .whitespace-nowrap { white-space: nowrap; }
+  
+  .bg-primary { background-color: var(--color-primary); }
+  .text-white { color: #ffffff; }
+  .hover\:bg-primary-hover:hover { background-color: var(--color-primary-hover); }
+  
+  .bg-card { background-color: var(--color-bg-card); }
+  .text-text { color: var(--color-text); }
+  .border { border-width: 1px; border-style: solid; }
+  .border-border { border-color: var(--color-border); }
+  .hover\:bg-bg-subtle:hover { background-color: var(--color-bg-subtle); }
+  
+  .bg-transparent { background-color: transparent; }
+  .hover\:border-primary:hover { border-color: var(--color-primary); }
+  .hover\:text-primary:hover { color: var(--color-primary); }
+  .inline-flex { min-height: 2.75rem; padding: .7rem 1rem; font-size: .875rem; letter-spacing: -.01em; }
+</style>

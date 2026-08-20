@@ -1,0 +1,11 @@
+node_modules
+bun.lock
+.next
+.agents
+.astro
+.playwright-cli
+dist
+.env
+.DS_Store
+temp_index.html
+image.png

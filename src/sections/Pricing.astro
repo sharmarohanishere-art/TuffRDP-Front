@@ -1,0 +1,79 @@
+---
+import Container from '../components/ui/Container.astro';
+import PlanCard from '../components/marketing/PlanCard.astro';
+import { plans } from '../data/home';
+import { Icon } from 'astro-icon/components';
+---
+<section id="pricing" class="py-32 bg-bg border-b border-border relative">
+  <!-- Subtle Background Pattern -->
+  <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
+
+  <Container class="relative z-10">
+    <div class="max-w-2xl mb-20">
+      <p class="text-[0.72rem] font-mono tracking-wider text-primary uppercase mb-4">04 / Server plans</p>
+      <h2 class="text-3xl md:text-4xl font-semibold text-text leading-tight mb-4">Choose the capacity your remote workload needs.</h2>
+      <p class="text-text-muted text-lg">Six monthly configurations, with the resources visible before you select a server.</p>
+    </div>
+    
+    <div class="grid lg:grid-cols-[1.2fr_2fr] gap-12 lg:gap-20 items-start">
+      
+      <!-- Recommended Plan -->
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <span class="w-2 h-2 rounded-full bg-signal animate-pulse"></span>
+          <p class="text-[0.65rem] font-mono tracking-wider text-text-muted uppercase">Recommended Configuration</p>
+        </div>
+        <PlanCard plan={plans.find(p => p.name === 'Standard') || plans[2]} />
+      </div>
+
+      <!-- Other Plans (Dense List) -->
+      <div class="flex flex-col">
+        <div class="flex items-center gap-4 mb-8">
+          <h3 class="text-[0.65rem] font-mono tracking-wider text-text-muted uppercase">Complete Catalogue</h3>
+          <div class="h-px flex-1 bg-border-emphasis"></div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[600px]">
+            <thead>
+              <tr class="border-b border-border-subtle">
+                <th class="py-4 pr-4 font-mono text-[0.65rem] tracking-wider text-text-muted uppercase font-normal">Plan</th>
+                <th class="py-4 px-4 font-mono text-[0.65rem] tracking-wider text-text-muted uppercase font-normal">Mem_Alloc</th>
+                <th class="py-4 px-4 font-mono text-[0.65rem] tracking-wider text-text-muted uppercase font-normal">vCPU_Cores</th>
+                <th class="py-4 px-4 font-mono text-[0.65rem] tracking-wider text-text-muted uppercase font-normal">NVMe_Vol</th>
+                <th class="py-4 pl-4 font-mono text-[0.65rem] tracking-wider text-text-muted uppercase font-normal text-right">Mo. Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              {plans.map((plan) => (
+                <tr class="border-b border-border-subtle hover:bg-surface-1/50 transition-colors group">
+                  <td class="py-4 pr-4">
+                    <div class="flex items-center gap-3">
+                      <strong class="text-sm font-semibold text-text">{plan.name}</strong>
+                      {plan.name === 'Standard' && <span class="text-[0.55rem] font-mono bg-primary/10 text-primary border border-primary/20 px-1.5 py-0.5 rounded">REC</span>}
+                    </div>
+                  </td>
+                  <td class="py-4 px-4 text-sm font-mono text-text-muted group-hover:text-text transition-colors">{plan.specs.find(s => s.label === 'Memory')?.value || '-'}</td>
+                  <td class="py-4 px-4 text-sm font-mono text-text-muted group-hover:text-text transition-colors">{plan.specs.find(s => s.label === 'Compute')?.value || '-'}</td>
+                  <td class="py-4 px-4 text-sm font-mono text-text-muted group-hover:text-text transition-colors">{plan.specs.find(s => s.label === 'Storage')?.value || '-'}</td>
+                  <td class="py-4 pl-4 text-right">
+                    <a href="https://tuffrdp.com/en/windows-rdp" class="inline-flex items-center justify-end gap-2 w-full">
+                      <span class="text-sm font-semibold text-text">€{plan.price.toFixed(2)}</span>
+                      <Icon name="lucide:arrow-up-right" class="w-4 h-4 text-text-muted group-hover:text-primary transition-colors" />
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-8 p-4 bg-surface-1 border border-border-subtle rounded flex items-start gap-4">
+          <Icon name="lucide:info" class="w-5 h-5 text-text-muted shrink-0 mt-0.5" />
+          <p class="text-sm text-text-muted leading-relaxed m-0">All instances include 1 Gbps uplink, DDoS protection, and full administrator/root access. Prices shown are starting configurations and may vary based on OS license requirements.</p>
+        </div>
+      </div>
+      
+    </div>
+  </Container>
+</section>
