@@ -1,0 +1,139 @@
+---
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+import { Icon } from 'astro-icon/components';
+import { capabilities } from '../data/home';
+---
+
+<section class="relative pt-10 md:pt-16 pb-12 overflow-hidden bg-bg">
+  <!-- Aceternity-inspired Grid Background -->
+  <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+  
+  <!-- Aceternity-inspired Spotlight (Subtle) -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[500px] opacity-30 pointer-events-none bg-[radial-gradient(circle_at_center,var(--color-primary),transparent_60%)] mix-blend-screen blur-[100px]"></div>
+
+  <Container class="relative z-10">
+    <div class="grid md:grid-cols-[1.1fr_0.9fr] gap-12 items-center min-h-[31rem]">
+      
+      <!-- Left: Copy -->
+      <div class="max-w-[42rem] opacity-0" id="hero-copy">
+        <p class="flex items-center gap-2 text-[0.68rem] font-mono tracking-wider uppercase text-primary mb-4">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-signal opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-signal"></span>
+          </span>
+          Remote compute / deployed for work
+        </p>
+        <h1 class="text-4xl md:text-[var(--text-display)] font-[650] leading-[1.15] max-w-[22ch] my-6 text-text tracking-tight">
+          Infrastructure for the desktop you depend on.
+        </h1>
+        <p class="max-w-[34rem] mb-10 text-base md:text-[1.05rem] leading-relaxed text-text-muted">
+          Windows RDP and Linux VPS built on NVMe storage, Intel Xeon compute, and a protected network—ready for the workloads that need a persistent remote environment.
+        </p>
+        <div class="flex flex-wrap gap-4 items-center">
+          <Button href="#pricing">View server plans</Button>
+          <Button href="#infrastructure" variant="outline" class="!border-border-subtle hover:!border-border">Explore infrastructure</Button>
+        </div>
+      </div>
+
+      <!-- Right: Infrastructure Control Surface -->
+      <div class="relative w-full max-w-lg mx-auto md:ml-auto opacity-0" id="hero-visual">
+        <div class="relative w-full aspect-[16/11] flex items-center justify-center">
+          <!-- 3D Globe Visualization -->
+          <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-90 mix-blend-screen overflow-hidden [mask-image:radial-gradient(circle_at_center,black_40%,transparent_100%)]">
+            <canvas id="cobe-globe" class="w-full h-full object-contain" width="1000" height="1000" style="aspect-ratio: 1/1; max-height: 500px;"></canvas>
+          </div>
+          
+          <!-- Phoenix Legend Overlay -->
+          <div class="absolute bottom-6 left-6 z-10 flex items-center gap-3 bg-surface-1/90 backdrop-blur px-3 py-2 rounded-md border border-border shadow-xl">
+            <div class="relative flex items-center justify-center">
+              <span class="absolute inline-flex h-4 w-4 rounded-full bg-primary opacity-50 animate-ping"></span>
+              <div class="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_var(--color-primary)]"></div>
+            </div>
+            <span class="text-[0.65rem] font-mono font-bold text-text-muted tracking-widest uppercase">
+              Phoenix, AZ
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Capabilities Strip -->
+    <ul class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-0 mt-[clamp(3rem,6vw,5rem)] border-t border-border pt-8 opacity-0" id="hero-capabilities">
+      {capabilities.map(([label, value], index) => (
+        <li class="flex flex-col gap-1 md:pr-6 md:border-r border-border-subtle last:border-r-0 md:pl-6 first:pl-0">
+          <span class="text-[0.72rem] font-mono text-text-muted tracking-wider uppercase">{label}</span>
+          <strong class="text-[0.92rem] font-[550] text-text">{value}</strong>
+        </li>
+      ))}
+    </ul>
+  </Container>
+</section>
+
+<script>
+  import { animate } from 'motion';
+  import createGlobe from 'cobe';
+
+  // Simple entrance animation using motion
+  animate(
+    '#hero-copy',
+    { opacity: [0, 1], y: [20, 0] },
+    { duration: 0.6, easing: [0.4, 0, 0.2, 1] }
+  );
+  
+  animate(
+    '#hero-visual',
+    { opacity: [0, 1], scale: [0.95, 1], filter: ['blur(10px)', 'blur(0px)'] },
+    { duration: 0.8, delay: 0.2, easing: [0.4, 0, 0.2, 1] }
+  );
+
+  animate(
+    '#hero-capabilities',
+    { opacity: [0, 1], y: [20, 0] },
+    { duration: 0.6, delay: 0.4, easing: [0.4, 0, 0.2, 1] }
+  );
+
+  // Initialize COBE 3D Globe
+  const canvas = document.getElementById('cobe-globe') as HTMLCanvasElement | null;
+  if (canvas) {
+    let phi = 0;
+    // Phoenix coordinates
+    const phxLat = 33.4484;
+    const phxLng = -112.0740;
+    
+    // Base rotation to center North America (approx phi = 5.1 radians)
+    const basePhi = 5.1;
+
+    const globe = createGlobe(canvas, {
+      devicePixelRatio: 2,
+      width: 1000,
+      height: 1000,
+      phi: basePhi,
+      theta: 0.15, // Slight tilt
+      dark: 1, // Dark mode styling
+      diffuse: 1.2,
+      mapSamples: 16000,
+      mapBrightness: 6,
+      baseColor: [0.3, 0.3, 0.3], // Brighter base for dots in dark mode
+      markerColor: [0.23, 0.73, 0.97], // Primary blue
+      glowColor: [0.1, 0.1, 0.2],
+      markers: [
+        { location: [phxLat, phxLng], size: 0.08, id: 'phx' }
+      ]
+    });
+
+    function animate() {
+      phi += 0.002; // Very slow rotation
+      globe.update({ phi: basePhi + phi });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  }
+</script>
+
+<style>
+  @keyframes flow {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(300%); }
+  }
+</style>

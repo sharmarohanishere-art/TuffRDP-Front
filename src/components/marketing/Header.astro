@@ -1,0 +1,152 @@
+---
+import Container from '../ui/Container.astro';
+import Logo from '../ui/Logo.astro';
+import Button from '../ui/Button.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<header class="sticky top-0 z-40 w-full border-b border-border-subtle bg-bg/85 backdrop-blur-md transition-colors">
+  <Container class="flex h-16 items-center justify-between gap-8">
+    <Logo />
+
+    <nav class="hidden md:flex items-center gap-2" aria-label="Primary navigation">
+      <details class="nav-menu group relative">
+        <summary class="flex items-center gap-1.5 cursor-pointer text-[0.85rem] font-medium text-text-subtle hover:text-text hover:bg-surface-2/60 px-3 py-1.5 rounded-full transition-all list-none">
+          Products <Icon name="lucide:chevron-down" class="w-3.5 h-3.5 text-primary transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="absolute top-[calc(100%+0.75rem)] left-1/2 -translate-x-1/2 w-[16rem] p-1.5 bg-surface-1/95 backdrop-blur-xl border border-border-subtle shadow-2xl rounded-lg">
+          <a href="https://tuffrdp.com/en/windows-rdp" class="grid gap-0.5 p-3 rounded-md hover:bg-surface-2/60 transition-colors">
+            <b class="text-[0.85rem] text-text font-semibold">Windows RDP</b>
+            <small class="text-[0.72rem] text-text-muted">Persistent remote desktops</small>
+          </a>
+          <a href="https://tuffrdp.com/en/linux-vps" class="grid gap-0.5 p-3 rounded-md hover:bg-surface-2/60 transition-colors">
+            <b class="text-[0.85rem] text-text font-semibold">Linux VPS</b>
+            <small class="text-[0.72rem] text-text-muted">Flexible virtual servers</small>
+          </a>
+          <a href="https://tuffrdp.com/en/storage-vps" class="grid gap-0.5 p-3 rounded-md hover:bg-surface-2/60 transition-colors">
+            <b class="text-[0.85rem] text-text font-semibold">Storage VPS</b>
+            <small class="text-[0.72rem] text-text-muted">Capacity for your data</small>
+          </a>
+        </div>
+      </details>
+
+      <details class="nav-menu group relative">
+        <summary class="flex items-center gap-1.5 cursor-pointer text-[0.85rem] font-medium text-text-subtle hover:text-text hover:bg-surface-2/60 px-3 py-1.5 rounded-full transition-all list-none">
+          Infrastructure <Icon name="lucide:chevron-down" class="w-3.5 h-3.5 text-primary transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="absolute top-[calc(100%+0.75rem)] left-1/2 -translate-x-1/2 w-[16rem] p-1.5 bg-surface-1/95 backdrop-blur-xl border border-border-subtle shadow-2xl rounded-lg">
+          <a href="#infrastructure" class="grid gap-0.5 p-3 rounded-md hover:bg-surface-2/60 transition-colors">
+            <b class="text-[0.85rem] text-text font-semibold">Platform</b>
+            <small class="text-[0.72rem] text-text-muted">Compute, storage, and access</small>
+          </a>
+          <a href="https://tuffrdp.com/en/locations" class="grid gap-0.5 p-3 rounded-md hover:bg-surface-2/60 transition-colors">
+            <b class="text-[0.85rem] text-text font-semibold">Locations</b>
+            <small class="text-[0.72rem] text-text-muted">Choose your preferred region</small>
+          </a>
+          <a href="https://tuffrdp.com/en/statistics" class="grid gap-0.5 p-3 rounded-md hover:bg-surface-2/60 transition-colors">
+            <b class="text-[0.85rem] text-text font-semibold">Network</b>
+            <small class="text-[0.72rem] text-text-muted">Explore connectivity details</small>
+          </a>
+        </div>
+      </details>
+      
+      <a href="#pricing" class="text-[0.85rem] font-medium text-text-subtle hover:text-text hover:bg-surface-2/60 px-3 py-1.5 rounded-full transition-all">Pricing</a>
+      
+      <details class="nav-menu group relative">
+        <summary class="flex items-center gap-1.5 cursor-pointer text-[0.85rem] font-medium text-text-subtle hover:text-text hover:bg-surface-2/60 px-3 py-1.5 rounded-full transition-all list-none">
+          Resources <Icon name="lucide:chevron-down" class="w-3.5 h-3.5 text-primary transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="absolute top-[calc(100%+0.75rem)] left-1/2 -translate-x-1/2 w-[16rem] p-1.5 bg-surface-1/95 backdrop-blur-xl border border-border-subtle shadow-2xl rounded-lg">
+          <a href="https://tuffrdp.com/docs/" class="grid gap-0.5 p-3 rounded-md hover:bg-surface-2/60 transition-colors">
+            <b class="text-[0.85rem] text-text font-semibold">Documentation</b>
+            <small class="text-[0.72rem] text-text-muted">Product and setup guides</small>
+          </a>
+          <a href="https://tuffrdp.com/blog" class="grid gap-0.5 p-3 rounded-md hover:bg-surface-2/60 transition-colors">
+            <b class="text-[0.85rem] text-text font-semibold">Guides</b>
+            <small class="text-[0.72rem] text-text-muted">Articles and updates</small>
+          </a>
+          <a href="#faq" class="grid gap-0.5 p-3 rounded-md hover:bg-surface-2/60 transition-colors">
+            <b class="text-[0.85rem] text-text font-semibold">FAQ</b>
+            <small class="text-[0.72rem] text-text-muted">Answers before you deploy</small>
+          </a>
+        </div>
+      </details>
+    </nav>
+
+    <!-- Desktop Actions -->
+    <div class="hidden md:flex items-center gap-5 ml-auto md:ml-0">
+      <Button href="https://billing.tuffrdp.com/clientarea.php" class="!px-4 !py-2 !gap-2">Dashboard <Icon name="lucide:arrow-right" class="w-4 h-4" /></Button>
+    </div>
+
+    <!-- Mobile Nav -->
+    <details class="md:hidden group relative ml-auto">
+      <summary class="flex items-center gap-2 h-11 cursor-pointer list-none text-text text-[0.72rem] font-mono tracking-wider uppercase">
+        <span>Menu</span>
+        <Icon name="lucide:menu" class="w-4 h-4 group-open:hidden" />
+        <Icon name="lucide:x" class="w-4 h-4 hidden group-open:block" />
+      </summary>
+      <nav class="absolute top-14 right-0 w-[calc(100vw-2rem)] max-w-sm p-4 bg-surface-strong border border-border shadow-xl grid gap-4">
+        <div class="grid gap-2 pb-4 border-b border-border-subtle">
+          <p class="text-[0.68rem] text-primary font-mono tracking-wider uppercase m-0">Products</p>
+          <a href="https://tuffrdp.com/en/windows-rdp" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Windows RDP</a>
+          <a href="https://tuffrdp.com/en/linux-vps" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Linux VPS</a>
+          <a href="https://tuffrdp.com/en/storage-vps" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Storage VPS</a>
+        </div>
+        <div class="grid gap-2 pb-4 border-b border-border-subtle">
+          <p class="text-[0.68rem] text-primary font-mono tracking-wider uppercase m-0">Infrastructure</p>
+          <a href="#infrastructure" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Platform</a>
+          <a href="https://tuffrdp.com/en/locations" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Locations</a>
+          <a href="https://tuffrdp.com/en/statistics" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Network</a>
+        </div>
+        <div class="grid gap-2 pb-4 border-b border-border-subtle">
+          <p class="text-[0.68rem] text-primary font-mono tracking-wider uppercase m-0">Resources</p>
+          <a href="#pricing" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Pricing</a>
+          <a href="https://tuffrdp.com/docs/" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Documentation</a>
+          <a href="#faq" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">FAQ</a>
+        </div>
+        <div class="flex flex-col gap-3 pt-2">
+          <Button href="https://billing.tuffrdp.com/clientarea.php" class="w-full justify-center">Dashboard <Icon name="lucide:arrow-right" class="w-4 h-4 ml-2" /></Button>
+        </div>
+      </nav>
+    </details>
+  </Container>
+</header>
+
+<style>
+  /* Hide the native disclosure triangle across all browsers */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+</style>
+
+<script>
+  // Close other nav menus when one opens, and close when clicking outside
+  document.addEventListener('DOMContentLoaded', () => {
+    const details = document.querySelectorAll('.nav-menu');
+    
+    // Exclusive open (accordion style)
+    details.forEach(targetDetail => {
+      targetDetail.addEventListener('toggle', () => {
+        if (targetDetail.hasAttribute('open')) {
+          details.forEach(detail => {
+            if (detail !== targetDetail) {
+              detail.removeAttribute('open');
+            }
+          });
+        }
+      });
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target) return;
+      const isClickInside = Array.from(details).some(detail => detail.contains(e.target as Node));
+      
+      if (!isClickInside) {
+        details.forEach(detail => {
+          detail.removeAttribute('open');
+        });
+      }
+    });
+  });
+</script>

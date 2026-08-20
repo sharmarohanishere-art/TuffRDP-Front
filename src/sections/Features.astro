@@ -1,0 +1,221 @@
+---
+import Container from '../components/ui/Container.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<section id="infrastructure" class="py-24 bg-bg border-t border-border relative overflow-hidden">
+  <Container class="relative z-10">
+    
+    <!-- 1. Infrastructure Metric Strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 border border-border bg-surface-1/50 rounded-md overflow-hidden mb-32" id="metric-strip">
+      <div class="p-6 border-b md:border-b-0 md:border-r border-border-subtle group hover:bg-surface-2 transition-colors relative overflow-hidden">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[radial-gradient(circle_at_bottom,var(--color-primary),transparent_70%)] mix-blend-screen transition-opacity duration-500 blur-xl"></div>
+        <p class="text-[0.65rem] font-mono tracking-wider text-text-muted mb-2">COMPUTE</p>
+        <p class="text-xl font-semibold text-text">Intel Xeon® E5</p>
+      </div>
+      <div class="p-6 border-b md:border-b-0 md:border-r border-border-subtle group hover:bg-surface-2 transition-colors relative overflow-hidden">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[radial-gradient(circle_at_bottom,var(--color-primary),transparent_70%)] mix-blend-screen transition-opacity duration-500 blur-xl"></div>
+        <p class="text-[0.65rem] font-mono tracking-wider text-text-muted mb-2">STORAGE</p>
+        <p class="text-xl font-semibold text-text">Enterprise NVMe</p>
+      </div>
+      <div class="p-6 border-r border-border-subtle group hover:bg-surface-2 transition-colors relative overflow-hidden">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[radial-gradient(circle_at_bottom,var(--color-primary),transparent_70%)] mix-blend-screen transition-opacity duration-500 blur-xl"></div>
+        <p class="text-[0.65rem] font-mono tracking-wider text-text-muted mb-2">NETWORK</p>
+        <p class="text-xl font-semibold text-text">1 Gbps Uplink</p>
+      </div>
+      <div class="p-6 group hover:bg-surface-2 transition-colors relative overflow-hidden">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[radial-gradient(circle_at_bottom,var(--color-signal),transparent_70%)] mix-blend-screen transition-opacity duration-500 blur-xl"></div>
+        <p class="text-[0.65rem] font-mono tracking-wider text-text-muted mb-2">PROTECTION</p>
+        <p class="text-xl font-semibold text-text">L4 DDoS Mitigated</p>
+      </div>
+    </div>
+
+    <!-- 2. Connected Infrastructure Visualization -->
+    <div class="mb-32">
+      <div class="max-w-2xl mb-16">
+        <p class="text-[0.72rem] font-mono tracking-wider text-primary uppercase mb-4">01 / Architecture</p>
+        <h2 class="text-3xl md:text-4xl font-semibold text-text leading-tight mb-4">Built as a connected system, not a stack of promises.</h2>
+        <p class="text-text-muted text-lg">Every node is directly attached to high-performance NVMe storage and redundantly routed to the internet backbone.</p>
+      </div>
+      
+      <!-- Topology Graph -->
+      <div class="relative bg-surface-1 border border-border p-8 rounded-lg overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        
+        <!-- Edge -->
+        <div class="relative z-10 flex flex-col items-center w-32">
+          <div class="w-16 h-16 rounded-full bg-surface-3 border border-border flex items-center justify-center mb-4">
+            <Icon name="lucide:globe" class="w-6 h-6 text-text-muted" />
+          </div>
+          <p class="text-[0.65rem] font-mono text-text-muted text-center">NETWORK EDGE</p>
+        </div>
+        
+        <!-- Path -->
+        <div class="hidden md:block flex-1 h-px bg-border-emphasis relative">
+          <div class="absolute top-1/2 -translate-y-1/2 w-4 h-1 rounded-full bg-primary shadow-[0_0_10px_var(--color-primary)] animate-[traverse-x_2s_linear_infinite]"></div>
+        </div>
+        <div class="md:hidden w-px h-16 bg-border-emphasis relative">
+          <div class="absolute left-1/2 -translate-x-1/2 h-4 w-1 rounded-full bg-primary shadow-[0_0_10px_var(--color-primary)] animate-[traverse-y_2s_linear_infinite]"></div>
+        </div>
+
+        <!-- Routing -->
+        <div class="relative z-10 flex flex-col items-center w-32">
+          <div class="w-16 h-16 rounded-full bg-surface-3 border border-border flex items-center justify-center mb-4">
+            <Icon name="lucide:router" class="w-6 h-6 text-text-muted" />
+          </div>
+          <p class="text-[0.65rem] font-mono text-text-muted text-center">ROUTING</p>
+        </div>
+
+        <!-- Path -->
+        <div class="hidden md:block flex-1 h-px bg-border-emphasis relative">
+          <div class="absolute top-1/2 -translate-y-1/2 w-4 h-1 rounded-full bg-primary shadow-[0_0_10px_var(--color-primary)] animate-[traverse-x_2s_linear_infinite_500ms]"></div>
+        </div>
+        <div class="md:hidden w-px h-16 bg-border-emphasis relative">
+          <div class="absolute left-1/2 -translate-x-1/2 h-4 w-1 rounded-full bg-primary shadow-[0_0_10px_var(--color-primary)] animate-[traverse-y_2s_linear_infinite_500ms]"></div>
+        </div>
+
+        <!-- Node + NVMe -->
+        <div class="relative z-10 flex flex-col items-center w-40">
+          <div class="w-24 h-24 rounded-lg bg-primary/5 border border-primary/20 flex flex-col items-center justify-center mb-4 relative overflow-hidden group">
+            <div class="absolute inset-0 bg-primary/10 blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <Icon name="lucide:server" class="w-6 h-6 text-primary mb-2 relative z-10" />
+            <div class="flex items-center gap-1 bg-surface-strong px-2 py-0.5 rounded text-[0.55rem] font-mono text-text relative z-10 border border-border">
+              <Icon name="lucide:database" class="w-3 h-3 text-signal" /> NVMe
+            </div>
+          </div>
+          <p class="text-[0.65rem] font-mono text-primary text-center">VIRTUAL NODE</p>
+        </div>
+
+        <!-- Path -->
+        <div class="hidden md:block flex-1 h-px bg-border-emphasis relative">
+          <div class="absolute top-1/2 -translate-y-1/2 w-4 h-1 rounded-full bg-signal shadow-[0_0_10px_var(--color-signal)] animate-[traverse-x_2s_linear_infinite_1000ms]"></div>
+        </div>
+        <div class="md:hidden w-px h-16 bg-border-emphasis relative">
+          <div class="absolute left-1/2 -translate-x-1/2 h-4 w-1 rounded-full bg-signal shadow-[0_0_10px_var(--color-signal)] animate-[traverse-y_2s_linear_infinite_1000ms]"></div>
+        </div>
+
+        <!-- Server -->
+        <div class="relative z-10 flex flex-col items-center w-32">
+          <div class="w-16 h-16 rounded-full bg-signal/10 border border-signal/30 flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(34,197,94,0.15)]">
+            <Icon name="lucide:monitor" class="w-6 h-6 text-signal" />
+          </div>
+          <p class="text-[0.65rem] font-mono text-signal text-center">YOUR INSTANCE</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Compute / Performance Bento Grid -->
+    <div>
+      <div class="max-w-2xl mb-12">
+        <p class="text-[0.72rem] font-mono tracking-wider text-primary uppercase mb-4">02 / Performance</p>
+        <h2 class="text-3xl md:text-4xl font-semibold text-text leading-tight mb-4">Resources you can verify.</h2>
+        <p class="text-text-muted text-lg">We don't oversubscribe CPU cycles or throttle disk I/O. Your allocated resources are dedicated to your workload.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Large Card: CPU with Technical Viz -->
+        <div class="md:col-span-2 p-8 rounded-xl border border-border bg-surface-1 relative overflow-hidden group flex flex-col justify-between">
+          <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-full bg-[radial-gradient(ellipse_at_top,var(--color-primary),transparent_50%)] opacity-0 group-hover:opacity-10 transition-opacity duration-700 blur-[80px]"></div>
+          
+          <!-- Aceternity-inspired CPU Visual -->
+          <div class="absolute top-0 right-0 w-full md:w-1/2 h-full overflow-hidden pointer-events-none z-0">
+            <!-- Grid Pins Background -->
+            <div class="absolute inset-0 [background-size:12px_12px] [background-image:radial-gradient(var(--color-border-emphasis)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)] opacity-20 group-hover:opacity-40 transition-opacity duration-700"></div>
+            
+            <!-- CPU Package -->
+            <div class="absolute top-1/2 right-4 md:right-12 -translate-y-1/2 w-40 h-40 md:w-48 md:h-48 border border-border bg-surface-1/80 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-2xl transform rotate-[15deg] group-hover:rotate-[0deg] group-hover:scale-105 transition-all duration-700 ease-out opacity-20 md:opacity-100">
+              <!-- Outer pins rim -->
+              <div class="absolute inset-2 border border-border-emphasis/50 rounded-xl [background-size:6px_6px] [background-image:radial-gradient(var(--color-text-muted)_1px,transparent_1px)] opacity-20"></div>
+              
+              <!-- Heat Spreader -->
+              <div class="relative z-10 w-24 h-24 md:w-32 md:h-32 bg-surface-3 border border-border shadow-inner rounded flex flex-col items-center justify-center overflow-hidden">
+                <!-- Metallic gradient -->
+                <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20"></div>
+                
+                <!-- Logo/Text -->
+                <div class="relative z-10 text-center">
+                  <Icon name="lucide:cpu" class="w-6 h-6 md:w-8 md:h-8 text-primary mx-auto mb-2" />
+                  <div class="text-[0.45rem] md:text-[0.55rem] font-mono tracking-widest text-text-muted uppercase">INTEL XEON</div>
+                </div>
+                
+                <!-- Animated scanning line over the CPU -->
+                <div class="absolute top-0 left-0 w-full h-[2px] bg-primary shadow-[0_0_10px_var(--color-primary)] animate-[traverse-y_2.5s_linear_infinite]"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="relative z-10 pointer-events-none md:pointer-events-auto">
+            <div class="flex items-center gap-3 mb-6">
+              <Icon name="lucide:cpu" class="w-6 h-6 text-primary" />
+              <span class="text-[0.65rem] font-mono tracking-wider text-text-muted uppercase border border-border-subtle bg-surface-2 px-2 py-1 rounded">NODE: VIRTUAL</span>
+              <span class="text-[0.65rem] font-mono tracking-wider text-text-muted uppercase border border-border-subtle bg-surface-2 px-2 py-1 rounded">ARCH: x86_64</span>
+            </div>
+            <h3 class="text-2xl font-semibold text-text mb-2">Intel Xeon® Processing</h3>
+            <p class="text-text-muted max-w-md">Every instance is powered by enterprise-grade Intel Xeon E5-2690 v4 processors, providing high clock speeds and massive L3 cache sizes perfect for compute-heavy RDP sessions.</p>
+          </div>
+
+          <!-- Technical Visualization (Mock lscpu output) -->
+          <div class="relative z-10 mt-8 pt-6 border-t border-border-subtle grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div>
+              <p class="text-[0.65rem] font-mono tracking-wider text-text-muted uppercase mb-1">Architecture</p>
+              <p class="font-mono text-sm text-text">x86_64</p>
+            </div>
+            <div>
+              <p class="text-[0.65rem] font-mono tracking-wider text-text-muted uppercase mb-1">CPU op-mode(s)</p>
+              <p class="font-mono text-sm text-text">32-bit, 64-bit</p>
+            </div>
+            <div>
+              <p class="text-[0.65rem] font-mono tracking-wider text-text-muted uppercase mb-1">Thread(s) / core</p>
+              <p class="font-mono text-sm text-text">2</p>
+            </div>
+            <div>
+              <p class="text-[0.65rem] font-mono tracking-wider text-text-muted uppercase mb-1">L3 cache</p>
+              <p class="font-mono text-sm text-text">35 MiB</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Storage & RAM (Not Cards, but list items) -->
+        <div class="flex flex-col gap-8 md:pl-4">
+          
+          <div class="relative group border-t border-border pt-6">
+            <div class="flex items-center gap-3 mb-3">
+              <Icon name="lucide:hard-drive" class="w-5 h-5 text-text" />
+              <span class="text-[0.65rem] font-mono tracking-wider text-text-muted uppercase">STATE: ACTIVE</span>
+            </div>
+            <h3 class="text-lg font-semibold text-text mb-2">Direct NVMe</h3>
+            <p class="text-sm text-text-muted">Pure NVMe solid-state storage directly attached to the hypervisor node. Zero SAN latency, millions of IOPS.</p>
+          </div>
+
+          <div class="relative group border-t border-border pt-6">
+            <div class="flex items-center gap-3 mb-3">
+              <Icon name="lucide:memory-stick" class="w-5 h-5 text-text" />
+              <span class="text-[0.65rem] font-mono tracking-wider text-text-muted uppercase">TYPE: DDR4_ECC</span>
+            </div>
+            <h3 class="text-lg font-semibold text-text mb-2">ECC Memory</h3>
+            <p class="text-sm text-text-muted">Error-correcting memory guarantees stability for long-running background tasks and memory-intensive applications.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </Container>
+</section>
+
+<style>
+  @keyframes traverse-x {
+    0% { transform: translateX(0%); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateX(300%); opacity: 0; }
+  }
+  @keyframes traverse-y {
+    0% { transform: translateY(0%); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(300%); opacity: 0; }
+  }
+</style>
