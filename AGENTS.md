@@ -334,12 +334,13 @@ Work in this sequence: **Inspect → Understand → Plan → Select relevant ski
 - Preserve URLs, external destinations, content, SEO behavior, and visual behavior unless an approved change says otherwise.
 - Label unknown behavior and ask for direction rather than inventing a menu, locale, backend, or conversion flow.
 - Keep technical changes narrowly scoped. Put design/content changes in a separately documented decision.
+- **Pre-Push Requirement**: Before committing and pushing any changes, you MUST run a full linter, type check, and production build to verify zero errors. The standard command is `bun run check && bun run lint && bun run build`.
 
 ## Verification requirements
 
 | Change | Minimum checks |
 | --- | --- |
-| Any Astro/source change | Type check, lint/format if configured, production build. |
+| Any Astro/source change | Type check, lint/format if configured, production build (`bun run check && bun run lint && bun run build`). |
 | Route/layout/SEO change | Direct route test, rendered head/canonical/robots/schema/sitemap check, broken-link check. |
 | UI/styling/responsive change | Desktop/tablet/mobile visual review; keyboard focus/reduced-motion check; visual regression where baseline exists. |
 | Island or form | No-JS fallback; keyboard/error behavior; emitted-JS inspection; E2E success/failure path. |

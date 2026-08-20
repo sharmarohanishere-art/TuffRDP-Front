@@ -1,7 +1,7 @@
 ---
 import Container from '../components/ui/Container.astro';
 import Button from '../components/ui/Button.astro';
-import { Icon } from 'astro-icon/components';
+
 import { capabilities } from '../data/home';
 ---
 
@@ -60,7 +60,7 @@ import { capabilities } from '../data/home';
     
     <!-- Capabilities Strip -->
     <ul class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-0 mt-[clamp(3rem,6vw,5rem)] border-t border-border pt-8 opacity-0" id="hero-capabilities">
-      {capabilities.map(([label, value], index) => (
+      {capabilities.map(([label, value]) => (
         <li class="flex flex-col gap-1 md:pr-6 md:border-r border-border-subtle last:border-r-0 md:pl-6 first:pl-0">
           <span class="text-[0.72rem] font-mono text-text-muted tracking-wider uppercase">{label}</span>
           <strong class="text-[0.92rem] font-[550] text-text">{value}</strong>
@@ -78,19 +78,19 @@ import { capabilities } from '../data/home';
   animate(
     '#hero-copy',
     { opacity: [0, 1], y: [20, 0] },
-    { duration: 0.6, easing: [0.4, 0, 0.2, 1] }
+    { duration: 0.6, ease: [0.4, 0, 0.2, 1] }
   );
   
   animate(
     '#hero-visual',
     { opacity: [0, 1], scale: [0.95, 1], filter: ['blur(10px)', 'blur(0px)'] },
-    { duration: 0.8, delay: 0.2, easing: [0.4, 0, 0.2, 1] }
+    { duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }
   );
 
   animate(
     '#hero-capabilities',
     { opacity: [0, 1], y: [20, 0] },
-    { duration: 0.6, delay: 0.4, easing: [0.4, 0, 0.2, 1] }
+    { duration: 0.6, delay: 0.4, ease: [0.4, 0, 0.2, 1] }
   );
 
   // Initialize COBE 3D Globe
