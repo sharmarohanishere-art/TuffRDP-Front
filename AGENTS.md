@@ -78,96 +78,30 @@ Ask these questions in order:
 
 Examples: a static pricing card is an Astro marketing component; a hero used on product pages is a reusable Astro section; pricing/specification values are typed data; a mobile menu that needs focus management may be a vanilla island; the FAQ uses `<details>` unless a proved interaction needs more.
 
-## Naming, types, styling, and responsive conventions
+## Naming, types, and code conventions
 
 - Use PascalCase for components and interfaces, camelCase for functions/data fields, kebab-case for route and collection filenames, and descriptive domain names (`pricingPlans`, not `items`).
 - Use explicit TypeScript props; export shared domain types from `src/types`. Avoid `any`, giant multi-purpose props, and boolean-flag proliferation.
 - Content collection schemas must validate title, description, publish state/date, slug, image alt/dimensions, author where applicable, locale when enabled, and any SEO overrides.
-- Use `src/styles/tokens.css` custom properties for colors, type scale, spacing, radius, shadows, z-index, breakpoints/motion conventions. Components consume tokens rather than inventing near-duplicate values.
-- Choose mobile-first responsive rules. Test 320–375 px, 768 px, and 1280+ px viewports. Reserve image dimensions and avoid breakpoint-specific duplicate content.
-- Global styles own reset/base/focus/reduced-motion behavior. Scoped component styles or deliberately configured utilities own local presentation. Inline style is allowed only for dynamic values with no semantic CSS alternative; never use it as a general styling system.
-- Support dark theme only if it remains approved behavior. Theme state must use vanilla JS or CSS only; respect system preference, persistence, `color-scheme`, and no-JS fallback.
+- Use `src/styles/tokens.css` custom properties for colors, type scale, spacing, radius, shadows, and motion. Components consume tokens rather than inventing near-duplicate values.
+- Choose mobile-first responsive rules. Test 320-375 px, 768 px, and 1280+ px viewports.
+- Global styles own reset/base/focus/reduced-motion behavior. Scoped component styles or Tailwind utilities own local presentation. Inline style is allowed only for dynamic values with no semantic CSS alternative.
 
-## Visual development rules
+For the complete design token reference, color palette, typography scale, spacing system, radius conventions, component visual contracts, animation patterns, and all visual design rules, see [`DESIGN.md`](DESIGN.md).
 
-### Design intent
+## Visual design system
 
-The visual language must feel deliberately made for an RDP, VPS, hosting, networking, or datacenter company: minimal, premium, technical, restrained, readable, and performance-first. A visually busy or conventionally “modern SaaS” page is not a success criterion.
+All visual design rules, design philosophy, color palette, typography system, spacing tokens, border radius conventions, shadow treatments, background effects, component visual contracts, animation patterns, section composition patterns, iconography rules, anti-patterns, and the mandatory visual review checklist are documented in [`DESIGN.md`](DESIGN.md).
 
-Visual complexity is not evidence of quality. Each treatment must support product understanding, hierarchy, a user decision, or an interaction state. If it does none of those things, remove it.
+Every frontend change must be consistent with `DESIGN.md`. Read it before creating or modifying any component, section, layout, or page.
 
-### Prohibited default patterns
+Key behavioral rules that also affect agent workflow:
 
-Do not introduce the following as automatic design choices:
-
-- Giant gradient hero type, rainbow/neon purple-blue gradients, or gradients repeated by section.
-- Glassmorphism, blur blobs, particles, arbitrary background grids, or glow on every card.
-- Floating decorative cards, fake dashboards, fake charts, terminal output, infrastructure diagrams, benchmarks, status numbers, or testimonials.
-- A bento grid, a badge-heading-paragraph-card stack, pill controls, rounded panels, or oversized centred heading merely because it is a familiar landing-page pattern.
-- Decorative icons that repeat the same meaning as the text, animation without state/progression meaning, or cards used as the default layout for every content group.
-
-An effect can be used only when it has a stated reason. For example: one accent glow may identify the currently selected datacenter; an OS icon improves scanning of a real catalogue; a topology diagram may explain verified connectivity. It may not be used purely to make a section look more “high-end.”
-
-### Infrastructure-first composition
-
-Start every page with the product story and actual, approved information. Prefer honest visuals that make infrastructure tangible: CPU/RAM/NVMe specification hierarchy, server plan constraints, supported operating systems, verified locations, network/routing relationships, deployment steps, virtualization model, RDP workflow, availability state, or connectivity.
-
-Never invent customer counts, uptime, performance claims, capacity, locations, latency, deployment time, benchmarks, reviews, or product statistics. If the data is unavailable, use neutral explanatory content and avoid a visual that implies a made-up metric.
-
-Pages belong to one system but must not repeat a fixed template such as `Hero → logo strip → three cards → bento → testimonials → FAQ → CTA`.
-
-- Windows RDP pages should normally lead with desktop/RDP experience, deployment and access, machine capability, OS choices, then plans.
-- Linux VPS pages should normally lead with compute/virtualization, CLI/developer workflow, distributions, networking, then plans.
-- Datacenter/location pages should normally lead with location and regional role, physical/network topology, verified capability, connectivity, then availability/next action.
-- Comparison, pricing, campaign, guide, and product-family pages must earn every section from their specific decision journey.
-
-Use a page outline before implementation. For every proposed section, record the user question it answers, the source of its facts, its dominant layout type, and why it is not redundant with the preceding section.
-
-### References and originality
-
-References are useful for hierarchy, density, spacing, typography, interaction patterns, and rhythm. Do not reproduce their hero construction, section sequence, card composition, background treatment, illustration, typography composition, or animation signature. Translate the principle through this project's content, tokens, and infrastructure vocabulary.
-
-### Typography, color, radius, and surfaces
-
-- Typography carries identity. Use strong but controlled hierarchy, readable line lengths, restrained weights, intentional tracking, and monospace only for technical metadata (plans, protocol labels, locations, hardware figures, or identifiers).
-- Large display type is justified only by page hierarchy and available content; never make a weak composition feel important by increasing font size.
-- Components use semantic project tokens only (`--color-*`, `--space-*`, `--radius-*`, `--shadow-*`, `--z-*`). No literal/arbitrary colours, gradients, or one-off shadows in components.
-- Accent colour signals brand, status, selection, keyboard focus, or action—not decoration. Respect contrast in both themes.
-- Controls may be rounded for touch/affordance. Technical surfaces, plan tables, data rows, diagrams, and panels may use sharper geometry. Do not round every visible boundary.
-- Shadows establish elevation and should be quiet. Glows are exceptional focal cues: primary CTA, active location/server, or a single hero node; never a global card style.
-
-### Component reuse and visual ownership
-
-Before creating a component, search `components/ui`, `components/marketing`, and `sections`; inspect props/slots; then decide whether the existing abstraction can be extended without weakening it. Create a new component only for a genuinely reusable pattern. Names such as `FeatureCard2`, `FeatureCardNew`, `ModernFeatureCard`, `PricingCardAlt`, or page-numbered variants are prohibited.
-
-Make the existing component better when the new requirement belongs to its contract. If two layouts are conceptually different, use distinct semantic components with different names and responsibilities rather than forcing a “universal card.” A component's visual treatment must match its information role—not merely reuse a convenient card shell.
-
-### Animation and progressive enhancement
-
-Animation must communicate state, direction, hierarchy, or progression: selected location, expanding detail, deployment sequence, navigation state, or a meaningful data-flow illustration. Use CSS first; use `IntersectionObserver` only for a confirmed progressive enhancement; use Motion/GSAP only when CSS/browser APIs cannot achieve the required behavior and the dependency cost is approved.
-
-Animations must work with `prefers-reduced-motion: reduce`, must not gate content, and must not cause layout shift or expensive continuous main-thread work. A static screenshot of the page must still look intentional and complete.
-
-### Visual performance rules
-
-Prefer Astro → semantic HTML → CSS/tokens (or approved Tailwind) → browser APIs → small vanilla module → isolated framework island. A visual convenience is not enough reason to add a framework, animation library, SVG package, image library, or client-side dependency.
-
-Before merging a visual change, inspect client JavaScript, image sizes, font requests, paint/layout stability, and third-party impact. Avoid forced `will-change`, full-page backdrop filters, layout-triggering scroll handlers, autoplay media, and above-fold lazy-loading of the actual LCP image.
-
-### Mandatory visual review
-
-Before declaring a page or substantial section complete, answer these in the PR/change notes:
-
-1. Does it resemble a generic AI-generated SaaS template? If so, what infrastructure-specific information or composition differentiates it?
-2. Are cards, pill shapes, gradients, glows, icons, and rounded surfaces each justified and restrained?
-3. Does every decorative visual communicate an approved product concept or a state?
-4. Does the section sequence follow this page's product story rather than a reused landing-page formula?
-5. Is hierarchy obvious with animation disabled and at 200% zoom?
-6. Does the mobile layout feel deliberately composed rather than a compressed desktop grid?
-7. Did the implementation reuse the correct primitive/section rather than create a near-duplicate?
-8. Can any JavaScript, asset, or dependency be removed without losing required behavior?
-
-If any answer reveals generic, decorative, fabricated, or redundant work, revise before review.
+- Before creating a component, search `components/ui`, `components/marketing`, and `sections`; inspect props/slots; then decide whether the existing abstraction can be extended without weakening it. Create a new component only for a genuinely reusable pattern.
+- Use a page outline before implementation. For every proposed section, record the user question it answers, the source of its facts, its dominant layout type, and why it is not redundant with the preceding section.
+- Never invent customer counts, uptime, performance claims, capacity, locations, latency, deployment time, benchmarks, reviews, or product statistics.
+- Before merging a visual change, inspect client JavaScript, image sizes, font requests, paint/layout stability, and third-party impact.
+- Complete the mandatory visual review checklist documented in `DESIGN.md` before declaring a page or substantial section complete.
 
 ## Accessibility rules
 
@@ -199,35 +133,29 @@ Generate JSON-LD from typed data only. Globally, use verified Organization/WebSi
 - Browser-exposed values use `PUBLIC_*` only and must be safe to publish. Secrets are server-only and must never be imported into static client code, markup, logs, screenshots, or analytics events.
 - Use Astro static forms posting to an approved provider first. Server endpoints/actions need validated input, anti-spam, error handling, monitoring, and explicit justification.
 
-## Core UI Packages & Usage
+## Core UI packages
 
-This repository leverages the following core UI packages and integrations to maintain the **TUFFRDP design system**:
+This repository uses these UI-related packages. For how they are applied visually, see [`DESIGN.md`](DESIGN.md).
 
-1. **Tailwind CSS (v4)**: Integrated via the `@tailwindcss/vite` plugin.
-   - **Usage**: Use Tailwind utility classes for new components and layouts.
-   - **Tokens Interoperability**: `src/styles/tokens.css` contains legacy scoped CSS variables (e.g., `var(--color-bg)`) used by older Astro components. Ensure these remain intact until a full Tailwind refactor is completed. New variables should be added here.
+1. **Tailwind CSS (v4)**: Integrated via the `@tailwindcss/vite` plugin in `astro.config.mjs`.
+   - Use Tailwind utility classes for new components and layouts.
+   - `src/styles/tokens.css` bridges CSS custom properties to Tailwind via the `@theme` block. New design tokens should be added there.
 
-2. **Astro Icon & Lucide**: Installed `astro-icon` and `@iconify-json/lucide`.
-   - **Usage**: Import `<Icon name="lucide:icon-name" />` directly in Astro templates. Avoid mixing random icon libraries; strictly use Lucide to maintain visual consistency.
+2. **Astro Icon & Lucide**: `astro-icon` with `@iconify-json/lucide`.
+   - Import `<Icon name="lucide:icon-name" />` directly in Astro templates.
+   - Use Lucide exclusively. Do not mix icon libraries.
 
-3. **Motion**: Installed `motion` (formerly framer-motion/motion one).
-   - **Usage**: Used for micro-interactions, state transitions, and section reveals (e.g., Pricing or Infrastructure visualizations). Use selectively—do not animate everything just for the sake of it.
+3. **Motion** (`motion` v13+, formerly framer-motion/motion one).
+   - Import `animate()` inside Astro `<script>` tags. Do not use `<motion.div>` React wrappers.
+   - Use selectively for entrance animations and state transitions.
 
-4. **External UI Libraries**: We draw inspiration and structure from Aceternity UI, Starwind UI, HyperUI, OpenTailwind, and 21st.dev.
-   - **Rule**: Do not install these as literal "design systems" or convert the project to React to use them. Take useful UI primitives/sections and reconstruct them in Astro using Tailwind + the TUFFRDP design tokens to ensure a unified identity.
+4. **cobe** (v2): Lightweight 3D globe library.
+   - Rendered on `<canvas>` inside an Astro `<script>` block with `requestAnimationFrame`.
+   - Do not introduce React/Three.js wrappers or heavy canvas libraries.
 
-### Aceternity UI Integration & Visual Revamp (Completed)
-
-The TUFFRDP homepage has undergone a complete visual revamp integrating Aceternity UI-inspired patterns, adhering strictly to the "Infrastructure Control Surface" aesthetic. 
-
-**Key implementation details to maintain:**
-- **Tailwind v4 First**: All revamped components (`Hero`, `Features`, `Catalog`, `Pricing`, `Faq`, `Header`, `Footer`) have been fully migrated to Tailwind v4 utility classes.
-- **Backgrounds & Grid Effects**: Use native Tailwind background patterns (e.g., `bg-[linear-gradient(...)] bg-[size:32px_32px]`) and CSS masks (`[mask-image:radial-gradient(...)]`) for hero/section backgrounds instead of importing heavy React canvas libraries.
-- **Glassmorphism & Navigation**: Achieved via Tailwind utilities (`bg-surface-1/95 backdrop-blur-xl border border-border-subtle shadow-2xl`) for interactive elements like Nav dropdowns. Top-level navigation items use modern pill-shaped hover states (`px-3 py-1.5 rounded-full hover:bg-surface-2/60`).
-- **Interactive Visuals (No React)**: Infrastructure topology visualizations and node graphics use standard HTML/CSS keyframe animations (e.g., `animate-[traverse-x]`, `animate-ping`) alongside `lucide` icons.
-- **3D Globe Visualization**: Use the lightweight `cobe` vanilla JavaScript library for 3D globe rendering. Render it natively inside an Astro `<script>` block using a `requestAnimationFrame` loop. Do not introduce React/Three.js wrappers or heavy canvas libraries.
-- **Motion (Framer Motion / Motion One)**: Used strictly for lightweight, staggered entrance animations on the client (`animate()` with delays), imported inside an Astro `<script>` tag. Do not introduce `<motion.div>` React wrappers.
-- **Hardware & Location Context**: All visual specifications and mockups must reference the actual infrastructure baseline: **Intel Xeon E5-2690 v4** processors (never AMD EPYC or generic placeholders) and the **Phoenix, Arizona (PHX)** datacenter topology.
+5. **External UI Libraries** (Aceternity UI, Starwind UI, HyperUI, OpenTailwind, 21st.dev).
+   - Inspiration only. Do not install as dependencies or convert the project to React.
+   - Reconstruct useful patterns in Astro using Tailwind + TUFFRDP design tokens.
 
 ## Dependency policy
 
@@ -357,10 +285,10 @@ Avoid: hardcoded repeated marketing content; giant multipurpose components; glob
 
 ## Decision authority
 
-1. Explicit user requirements and this `AGENTS.md`.
+1. Explicit user requirements, this `AGENTS.md`, and [`DESIGN.md`](DESIGN.md).
 2. Verified existing behavior.
 3. Recorded ADRs.
-4. Specialized project skill in its domain: accessibility can override visual parity; SEO controls indexability; performance controls measured critical-path trade-offs; Astro controls framework mechanics.
+4. Specialized project skill in its domain: accessibility can override visual parity; SEO controls indexability; performance controls measured critical-path trade-offs; Astro controls framework mechanics; `DESIGN.md` controls all visual/styling decisions.
 5. General coding conventions.
 
 When these conflict, stop, state the conflict and evidence, choose the higher authority, document the decision, and run its required validation.

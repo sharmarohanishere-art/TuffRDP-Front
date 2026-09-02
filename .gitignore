@@ -9,3 +9,4 @@ dist
 .DS_Store
 temp_index.html
 image.png
+.vercel
