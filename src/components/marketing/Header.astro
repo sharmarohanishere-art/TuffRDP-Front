@@ -14,18 +14,42 @@ import { Icon } from 'astro-icon/components';
         <summary class="flex items-center gap-1.5 cursor-pointer text-[0.85rem] font-medium text-text-subtle hover:text-text hover:bg-surface-2/60 px-3 py-1.5 rounded-full transition-all list-none">
           Products <Icon name="lucide:chevron-down" class="w-3.5 h-3.5 text-primary transition-transform group-open:rotate-180" />
         </summary>
-        <div class="absolute top-[calc(100%+0.75rem)] left-1/2 -translate-x-1/2 w-[16rem] p-1.5 bg-surface-1/95 backdrop-blur-xl border border-border-subtle shadow-2xl rounded-lg">
-          <a href="https://tuffrdp.com/en/windows-rdp" class="grid gap-0.5 p-3 rounded-md hover:bg-surface-2/60 transition-colors">
-            <b class="text-[0.85rem] text-text font-semibold">Windows RDP</b>
-            <small class="text-[0.72rem] text-text-muted">Persistent remote desktops</small>
+        <div class="absolute top-[calc(100%+0.75rem)] left-1/2 -translate-x-1/2 w-[32rem] p-3 bg-surface-1/95 backdrop-blur-xl border border-border-subtle shadow-2xl rounded-xl grid grid-cols-2 gap-1.5">
+          <a href="/windows-rdp" class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-surface-2/60 transition-colors">
+            <img src="/images/icon-windows-B94qRA1N.svg" alt="" class="w-5 h-5" />
+            <b class="text-[0.85rem] text-text font-medium">Windows RDP</b>
           </a>
-          <a href="https://tuffrdp.com/en/linux-vps" class="grid gap-0.5 p-3 rounded-md hover:bg-surface-2/60 transition-colors">
-            <b class="text-[0.85rem] text-text font-semibold">Linux VPS</b>
-            <small class="text-[0.72rem] text-text-muted">Flexible virtual servers</small>
+          <a href="/linux-vps" class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-surface-2/60 transition-colors">
+            <img src="/images/icon-linux.svg" alt="" class="w-5 h-5" />
+            <b class="text-[0.85rem] text-text font-medium">Linux VPS</b>
           </a>
-          <a href="https://tuffrdp.com/en/storage-vps" class="grid gap-0.5 p-3 rounded-md hover:bg-surface-2/60 transition-colors">
-            <b class="text-[0.85rem] text-text font-semibold">Storage VPS</b>
-            <small class="text-[0.72rem] text-text-muted">Capacity for your data</small>
+          <a href="/ubuntu-vps" class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-surface-2/60 transition-colors">
+            <img src="/images/icon-ubuntu-DeLceYK-.svg" alt="" class="w-5 h-5" />
+            <b class="text-[0.85rem] text-text font-medium">Ubuntu VPS</b>
+          </a>
+          <a href="/centos-vps" class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-surface-2/60 transition-colors">
+            <img src="/images/icon-centos-B7RigxN-.svg" alt="" class="w-5 h-5" />
+            <b class="text-[0.85rem] text-text font-medium">CentOS VPS</b>
+          </a>
+          <a href="/debian-vps" class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-surface-2/60 transition-colors">
+            <img src="/images/icon-debian-C0B5Cd-E.svg" alt="" class="w-5 h-5" />
+            <b class="text-[0.85rem] text-text font-medium">Debian VPS</b>
+          </a>
+          <a href="/fedora-vps" class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-surface-2/60 transition-colors">
+            <img src="/images/icon-fedora-6rdO8zAa.svg" alt="" class="w-5 h-5" />
+            <b class="text-[0.85rem] text-text font-medium">Fedora VPS</b>
+          </a>
+          <a href="/oracle-vps" class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-surface-2/60 transition-colors">
+            <img src="/images/icon-oracle.svg" alt="" class="w-5 h-5" />
+            <b class="text-[0.85rem] text-text font-medium">Oracle Linux VPS</b>
+          </a>
+          <a href="/almalinux-vps" class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-surface-2/60 transition-colors">
+            <img src="/images/icon-almalinux-CIAhjp2f.svg" alt="" class="w-5 h-5" />
+            <b class="text-[0.85rem] text-text font-medium">AlmaLinux VPS</b>
+          </a>
+          <a href="/rocky-linux-vps" class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-surface-2/60 transition-colors">
+            <img src="/images/icon-rockylinux-DN5D-07J.svg" alt="" class="w-5 h-5" />
+            <b class="text-[0.85rem] text-text font-medium">Rocky Linux VPS</b>
           </a>
         </div>
       </details>
@@ -86,11 +110,17 @@ import { Icon } from 'astro-icon/components';
         <Icon name="lucide:x" class="w-4 h-4 hidden group-open:block" />
       </summary>
       <nav class="absolute top-14 right-0 w-[calc(100vw-2rem)] max-w-sm p-4 bg-surface-strong border border-border shadow-xl grid gap-4">
-        <div class="grid gap-2 pb-4 border-b border-border-subtle">
-          <p class="text-[0.68rem] text-primary font-mono tracking-wider uppercase m-0">Products</p>
-          <a href="https://tuffrdp.com/en/windows-rdp" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Windows RDP</a>
-          <a href="https://tuffrdp.com/en/linux-vps" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Linux VPS</a>
-          <a href="https://tuffrdp.com/en/storage-vps" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Storage VPS</a>
+        <div class="grid gap-1.5 pb-4 border-b border-border-subtle">
+          <p class="text-[0.68rem] text-primary font-mono tracking-wider uppercase mb-1">Products</p>
+          <a href="/windows-rdp" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Windows RDP</a>
+          <a href="/linux-vps" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Linux VPS</a>
+          <a href="/ubuntu-vps" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Ubuntu VPS</a>
+          <a href="/centos-vps" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">CentOS VPS</a>
+          <a href="/debian-vps" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Debian VPS</a>
+          <a href="/fedora-vps" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Fedora VPS</a>
+          <a href="/oracle-vps" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Oracle Linux VPS</a>
+          <a href="/almalinux-vps" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">AlmaLinux VPS</a>
+          <a href="/rocky-linux-vps" class="py-1 text-[0.92rem] text-text-subtle hover:text-text">Rocky Linux VPS</a>
         </div>
         <div class="grid gap-2 pb-4 border-b border-border-subtle">
           <p class="text-[0.68rem] text-primary font-mono tracking-wider uppercase m-0">Infrastructure</p>

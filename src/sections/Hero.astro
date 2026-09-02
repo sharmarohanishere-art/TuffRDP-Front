@@ -3,6 +3,26 @@ import Container from '../components/ui/Container.astro';
 import Button from '../components/ui/Button.astro';
 
 import { capabilities } from '../data/home';
+
+interface Props {
+  badge?: string;
+  heading?: string;
+  description?: string;
+  primaryCta?: { href: string; label: string };
+  secondaryCta?: { href: string; label: string };
+  visual?: 'globe' | 'rdp' | 'vps';
+  visualIcon?: string | null;
+}
+
+const {
+  badge = 'Remote compute / deployed for work',
+  heading = 'Infrastructure for the desktop you depend on.',
+  description = 'Windows RDP and Linux VPS built on NVMe storage, Intel Xeon compute, and a protected network—ready for the workloads that need a persistent remote environment.',
+  primaryCta = { href: '#pricing', label: 'View server plans' },
+  secondaryCta = { href: '#infrastructure', label: 'Explore infrastructure' },
+  visual = 'globe',
+  visualIcon = null,
+} = Astro.props;
 ---
 
 <section class="relative pt-10 md:pt-16 pb-12 overflow-hidden bg-bg">
@@ -22,28 +42,56 @@ import { capabilities } from '../data/home';
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-signal opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-signal"></span>
           </span>
-          Remote compute / deployed for work
+          {badge}
         </p>
         <h1 class="text-4xl md:text-[var(--text-display)] font-[650] leading-[1.15] max-w-[22ch] my-6 text-text tracking-tight">
-          Infrastructure for the desktop you depend on.
+          {heading}
         </h1>
         <p class="max-w-[34rem] mb-10 text-base md:text-[1.05rem] leading-relaxed text-text-muted">
-          Windows RDP and Linux VPS built on NVMe storage, Intel Xeon compute, and a protected network—ready for the workloads that need a persistent remote environment.
+          {description}
         </p>
         <div class="flex flex-wrap gap-4 items-center">
-          <Button href="#pricing">View server plans</Button>
-          <Button href="#infrastructure" variant="outline" class="!border-border-subtle hover:!border-border">Explore infrastructure</Button>
+          <Button href={primaryCta.href}>{primaryCta.label}</Button>
+          <Button href={secondaryCta.href} variant="outline" class="!border-border-subtle hover:!border-border">{secondaryCta.label}</Button>
         </div>
       </div>
 
       <!-- Right: Infrastructure Control Surface -->
       <div class="relative w-full max-w-lg mx-auto md:ml-auto opacity-0" id="hero-visual">
         <div class="relative w-full aspect-[16/11] flex items-center justify-center">
-          <!-- 3D Globe Visualization -->
-          <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-90 mix-blend-screen overflow-hidden [mask-image:radial-gradient(circle_at_center,black_40%,transparent_100%)]">
-            <canvas id="cobe-globe" class="w-full h-full object-contain" width="1000" height="1000" style="aspect-ratio: 1/1; max-height: 500px;"></canvas>
-          </div>
-          
+          {visual === 'globe' ? (
+            <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-90 mix-blend-screen overflow-hidden [mask-image:radial-gradient(circle_at_center,black_40%,transparent_100%)]">
+              <canvas id="cobe-globe" class="w-full h-full object-contain" width="1000" height="1000" style="aspect-ratio: 1/1; max-height: 500px;"></canvas>
+            </div>
+          ) : (
+            <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
+              <div class="relative w-64 h-64 md:w-72 md:h-72 rounded-2xl border border-border bg-surface-1/80 backdrop-blur-sm flex flex-col items-center justify-center gap-4 shadow-2xl overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--color-primary),transparent_70%)] opacity-10 blur-2xl"></div>
+                {visualIcon ? (
+                  <img src={visualIcon} width="56" height="56" alt="" class="relative z-10" />
+                ) : visual === 'rdp' ? (
+                  <img src="/images/icon-windows-B94qRA1N.svg" width="56" height="56" alt="" class="relative z-10" />
+                ) : (
+                  <div class="relative z-10 w-14 h-14 flex items-center justify-center opacity-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-terminal"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+                  </div>
+                )}
+                <div class="relative z-10 flex items-center gap-2 bg-surface-strong px-3 py-1 rounded border border-border">
+                  <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-signal opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-signal"></span>
+                  </span>
+                  <span class="text-[0.65rem] font-mono tracking-widest text-text uppercase">
+                    {visual === 'rdp' ? 'Session ready' : 'Terminal ready'}
+                  </span>
+                </div>
+                <p class="relative z-10 text-[0.65rem] font-mono tracking-wider text-text-muted uppercase">
+                  {visual === 'rdp' ? 'RDP · Port 3389' : 'SSH · Port 22'}
+                </p>
+              </div>
+            </div>
+          )}
+
           <!-- Phoenix Legend Overlay -->
           <div class="absolute bottom-6 left-6 z-10 flex items-center gap-3 bg-surface-1/90 backdrop-blur px-3 py-2 rounded-md border border-border shadow-xl">
             <div class="relative flex items-center justify-center">
@@ -72,7 +120,6 @@ import { capabilities } from '../data/home';
 
 <script>
   import { animate } from 'motion';
-  import createGlobe from 'cobe';
 
   // Simple entrance animation using motion
   animate(
@@ -80,7 +127,7 @@ import { capabilities } from '../data/home';
     { opacity: [0, 1], y: [20, 0] },
     { duration: 0.6, ease: [0.4, 0, 0.2, 1] }
   );
-  
+
   animate(
     '#hero-visual',
     { opacity: [0, 1], scale: [0.95, 1], filter: ['blur(10px)', 'blur(0px)'] },
@@ -92,44 +139,50 @@ import { capabilities } from '../data/home';
     { opacity: [0, 1], y: [20, 0] },
     { duration: 0.6, delay: 0.4, ease: [0.4, 0, 0.2, 1] }
   );
-
-  // Initialize COBE 3D Globe
-  const canvas = document.getElementById('cobe-globe') as HTMLCanvasElement | null;
-  if (canvas) {
-    let phi = 0;
-    // Phoenix coordinates
-    const phxLat = 33.4484;
-    const phxLng = -112.0740;
-    
-    // Base rotation to center North America (approx phi = 5.1 radians)
-    const basePhi = 5.1;
-
-    const globe = createGlobe(canvas, {
-      devicePixelRatio: 2,
-      width: 1000,
-      height: 1000,
-      phi: basePhi,
-      theta: 0.15, // Slight tilt
-      dark: 1, // Dark mode styling
-      diffuse: 1.2,
-      mapSamples: 16000,
-      mapBrightness: 6,
-      baseColor: [0.3, 0.3, 0.3], // Brighter base for dots in dark mode
-      markerColor: [0.23, 0.73, 0.97], // Primary blue
-      glowColor: [0.1, 0.1, 0.2],
-      markers: [
-        { location: [phxLat, phxLng], size: 0.08, id: 'phx' }
-      ]
-    });
-
-    function animate() {
-      phi += 0.002; // Very slow rotation
-      globe.update({ phi: basePhi + phi });
-      requestAnimationFrame(animate);
-    }
-    animate();
-  }
 </script>
+
+{visual === 'globe' && (
+  <script>
+    import createGlobe from 'cobe';
+
+    // Initialize COBE 3D Globe
+    const canvas = document.getElementById('cobe-globe') as HTMLCanvasElement | null;
+    if (canvas) {
+      let phi = 0;
+      // Phoenix coordinates
+      const phxLat = 33.4484;
+      const phxLng = -112.0740;
+
+      // Base rotation to center North America (approx phi = 5.1 radians)
+      const basePhi = 5.1;
+
+      const globe = createGlobe(canvas, {
+        devicePixelRatio: 2,
+        width: 1000,
+        height: 1000,
+        phi: basePhi,
+        theta: 0.15, // Slight tilt
+        dark: 1, // Dark mode styling
+        diffuse: 1.2,
+        mapSamples: 16000,
+        mapBrightness: 6,
+        baseColor: [0.3, 0.3, 0.3], // Brighter base for dots in dark mode
+        markerColor: [0.23, 0.73, 0.97], // Primary blue
+        glowColor: [0.1, 0.1, 0.2],
+        markers: [
+          { location: [phxLat, phxLng], size: 0.08, id: 'phx' }
+        ]
+      });
+
+      function animate() {
+        phi += 0.002; // Very slow rotation
+        globe.update({ phi: basePhi + phi });
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+  </script>
+)}
 
 <style>
   @keyframes flow {

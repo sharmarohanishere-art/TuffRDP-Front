@@ -1,0 +1,55 @@
+---
+import Container from '../components/ui/Container.astro';
+import { Icon } from 'astro-icon/components';
+
+const steps = [
+  {
+    icon: 'lucide:server',
+    state: 'PROVISIONED',
+    title: 'Automated deployment',
+    description: 'Your instance is provisioned immediately after payment confirmation—no manual queue, no support ticket required.',
+  },
+  {
+    icon: 'lucide:mail',
+    state: 'DELIVERED',
+    title: 'Credentials by email',
+    description: 'The root username and password are emailed directly to you, ready to use as soon as the server is online.',
+  },
+  {
+    icon: 'lucide:terminal',
+    state: 'CONNECTED',
+    title: 'Any SSH client',
+    description: "Connect securely with OpenSSH, PuTTY, or your preferred terminal using the provided IP address.",
+  },
+  {
+    icon: 'lucide:shield-check',
+    state: 'ROOT ACCESS',
+    title: 'Full root privileges',
+    description: 'Install software, manage services, and configure the Linux environment exactly as you require.',
+  },
+];
+---
+
+<section id="access" class="py-24 bg-bg border-t border-border relative overflow-hidden">
+  <Container class="relative z-10">
+    <div class="max-w-2xl mb-16">
+      <p class="text-[0.72rem] font-mono tracking-wider text-primary uppercase mb-4">Secure shell access</p>
+      <h2 class="text-3xl md:text-4xl font-semibold text-text leading-tight mb-4">From payment to terminal, in four steps.</h2>
+      <p class="text-text-muted text-lg">No provisioning delay and no shared resources—your Linux VPS instance is yours alone, reachable over standard SSH.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 border border-border bg-surface-1/50 rounded-md overflow-hidden">
+      {steps.map((step, index) => (
+        <div class={`p-6 group hover:bg-surface-2 transition-colors relative overflow-hidden ${index < steps.length - 1 ? 'border-b md:border-b-0 md:border-r border-border-subtle' : ''}`}>
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[radial-gradient(circle_at_bottom,var(--color-primary),transparent_70%)] mix-blend-screen transition-opacity duration-500 blur-xl"></div>
+          <div class="relative z-10">
+            <Icon name={step.icon} class="w-5 h-5 text-primary mb-4" />
+            <p class="text-[0.65rem] font-mono tracking-wider text-text-muted mb-2">{step.state}</p>
+            <h3 class="text-lg font-semibold text-text mb-2">{step.title}</h3>
+            <p class="text-sm text-text-muted leading-relaxed">{step.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>

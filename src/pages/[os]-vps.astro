@@ -1,0 +1,44 @@
+---
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+import Hero from '../sections/Hero.astro';
+import SshAccess from '../sections/SshAccess.astro';
+import Features from '../sections/Features.astro';
+import Catalog from '../sections/Catalog.astro';
+import Pricing from '../sections/Pricing.astro';
+import Faq from '../sections/Faq.astro';
+import { vpsPages } from '../data/vpsPages';
+
+export function getStaticPaths() {
+  return vpsPages.map((page) => ({
+    params: { os: page.id },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+---
+
+<MarketingLayout
+  title={page.title}
+  description={page.description}
+>
+  <Hero
+    badge={page.heroBadge}
+    heading={page.heroHeading}
+    description={page.heroDescription}
+    primaryCta={{ href: '#pricing', label: `View ${page.name} plans` }}
+    secondaryCta={{ href: '#access', label: 'How access works' }}
+    visual="vps"
+    visualIcon={page.icon}
+  />
+  <SshAccess />
+  <Features />
+  <Catalog
+    family="Linux"
+    title="Every plan ships with a current Linux template."
+    description="Choose the release your applications and environment require."
+    ctaHref=""
+  />
+  <Pricing />
+  <Faq />
+</MarketingLayout>

@@ -3,9 +3,30 @@ import Container from '../components/ui/Container.astro';
 import { operatingSystems } from '../data/catalog';
 import { Icon } from 'astro-icon/components';
 
+interface Props {
+  family?: 'Windows' | 'Linux' | 'All';
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  ctaHref?: string;
+  ctaLabel?: string;
+}
+
+const {
+  family = 'All',
+  eyebrow = '03 / Deployment',
+  title = 'Start with the operating system your work already expects.',
+  description = 'Windows RDP and Linux VPS options stay visible in the same compact deployment catalogue.',
+  ctaHref = '/windows-rdp',
+  ctaLabel = 'Explore Windows RDP',
+} = Astro.props;
+
 const linux = operatingSystems.filter((system) => system.family === 'Linux');
 const windows = operatingSystems.filter((system) => system.family === 'Windows');
-const initialSystem = operatingSystems.find((system) => system.recommended) ?? operatingSystems[0];
+const showLinux = family !== 'Windows';
+const showWindows = family !== 'Linux';
+const filteredSystems = operatingSystems.filter((system) => family === 'All' || system.family === family);
+const initialSystem = filteredSystems.find((system) => system.recommended) ?? filteredSystems[0];
 ---
 
 <section id="deploy" class="py-32 bg-surface-1 border-y border-border-subtle relative overflow-hidden">
@@ -13,48 +34,54 @@ const initialSystem = operatingSystems.find((system) => system.recommended) ?? o
     
     <!-- Copy -->
     <div class="max-w-2xl mb-20">
-      <p class="text-[0.72rem] font-mono tracking-wider text-primary uppercase mb-4">03 / Deployment</p>
-      <h2 class="text-3xl md:text-4xl font-semibold text-text leading-tight mb-4">Start with the operating system your work already expects.</h2>
-      <p class="text-text-muted text-lg mb-8">Windows RDP and Linux VPS options stay visible in the same compact deployment catalogue.</p>
-      <a href="https://tuffrdp.com/en/windows-rdp" class="inline-flex items-center font-bold text-text hover:text-primary transition-colors group">
-        Explore Windows RDP 
-        <Icon name="lucide:arrow-right" class="w-4 h-4 ml-2 text-primary group-hover:translate-x-1 transition-transform" />
-      </a>
+      <p class="text-[0.72rem] font-mono tracking-wider text-primary uppercase mb-4">{eyebrow}</p>
+      <h2 class="text-3xl md:text-4xl font-semibold text-text leading-tight mb-4">{title}</h2>
+      <p class="text-text-muted text-lg mb-8">{description}</p>
+      {ctaHref && (
+        <a href={ctaHref} class="inline-flex items-center font-bold text-text hover:text-primary transition-colors group">
+          {ctaLabel}
+          <Icon name="lucide:arrow-right" class="w-4 h-4 ml-2 text-primary group-hover:translate-x-1 transition-transform" />
+        </a>
+      )}
     </div>
 
     <!-- Catalog -->
     <div class="grid lg:grid-cols-[1fr_1fr] gap-16 items-start" data-os-selector>
-      
+
       <!-- OS Lists -->
-      <div class="grid grid-cols-2 gap-12">
-        
+      <div class={showLinux && showWindows ? 'grid grid-cols-2 gap-12' : ''}>
+
         <!-- Linux -->
-        <div>
-          <h3 class="text-[0.65rem] font-mono tracking-wider text-text-muted uppercase mb-6 border-b border-border pb-4">Linux Templates</h3>
-          <div class="flex flex-col gap-2">
-            {linux.map((system) => (
-              <button type="button" class="os-option group w-full flex items-center gap-3 px-3 py-2 -ml-3 rounded hover:bg-surface-2 transition-all aria-pressed:bg-surface-2" data-name={system.name} data-family={system.family} aria-pressed={system.name === initialSystem.name ? 'true' : 'false'}>
-                <img src={system.icon} width="20" height="20" alt="" class="opacity-70 group-hover:opacity-100 group-aria-pressed:opacity-100 transition-opacity" />
-                <span class="text-sm font-medium text-text-subtle group-hover:text-text group-aria-pressed:text-text transition-colors">{system.name}</span>
-                <div class="ml-auto w-1 h-4 rounded-full bg-signal opacity-0 group-aria-pressed:opacity-100 transition-opacity"></div>
-              </button>
-            ))}
+        {showLinux && (
+          <div>
+            <h3 class="text-[0.65rem] font-mono tracking-wider text-text-muted uppercase mb-6 border-b border-border pb-4">Linux Templates</h3>
+            <div class="flex flex-col gap-2">
+              {linux.map((system) => (
+                <button type="button" class="os-option group w-full flex items-center gap-3 px-3 py-2 -ml-3 rounded hover:bg-surface-2 transition-all aria-pressed:bg-surface-2" data-name={system.name} data-family={system.family} aria-pressed={system.name === initialSystem.name ? 'true' : 'false'}>
+                  <img src={system.icon} width="20" height="20" alt="" class="opacity-70 group-hover:opacity-100 group-aria-pressed:opacity-100 transition-opacity" />
+                  <span class="text-sm font-medium text-text-subtle group-hover:text-text group-aria-pressed:text-text transition-colors">{system.name}</span>
+                  <div class="ml-auto w-1 h-4 rounded-full bg-signal opacity-0 group-aria-pressed:opacity-100 transition-opacity"></div>
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         <!-- Windows -->
-        <div>
-          <h3 class="text-[0.65rem] font-mono tracking-wider text-text-muted uppercase mb-6 border-b border-border pb-4">Windows Templates</h3>
-          <div class="flex flex-col gap-2">
-            {windows.map((system) => (
-              <button type="button" class="os-option group w-full flex items-center gap-3 px-3 py-2 -ml-3 rounded hover:bg-surface-2 transition-all aria-pressed:bg-surface-2" data-name={system.name} data-family={system.family} aria-pressed="false">
-                <img src={system.icon} width="20" height="20" alt="" class="opacity-70 group-hover:opacity-100 group-aria-pressed:opacity-100 transition-opacity" />
-                <span class="text-sm font-medium text-text-subtle group-hover:text-text group-aria-pressed:text-text transition-colors">{system.name}</span>
-                <div class="ml-auto w-1 h-4 rounded-full bg-signal opacity-0 group-aria-pressed:opacity-100 transition-opacity"></div>
-              </button>
-            ))}
+        {showWindows && (
+          <div>
+            <h3 class="text-[0.65rem] font-mono tracking-wider text-text-muted uppercase mb-6 border-b border-border pb-4">Windows Templates</h3>
+            <div class="flex flex-col gap-2">
+              {windows.map((system) => (
+                <button type="button" class="os-option group w-full flex items-center gap-3 px-3 py-2 -ml-3 rounded hover:bg-surface-2 transition-all aria-pressed:bg-surface-2" data-name={system.name} data-family={system.family} aria-pressed={system.name === initialSystem.name ? 'true' : 'false'}>
+                  <img src={system.icon} width="20" height="20" alt="" class="opacity-70 group-hover:opacity-100 group-aria-pressed:opacity-100 transition-opacity" />
+                  <span class="text-sm font-medium text-text-subtle group-hover:text-text group-aria-pressed:text-text transition-colors">{system.name}</span>
+                  <div class="ml-auto w-1 h-4 rounded-full bg-signal opacity-0 group-aria-pressed:opacity-100 transition-opacity"></div>
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <!-- Preview Pane -->
